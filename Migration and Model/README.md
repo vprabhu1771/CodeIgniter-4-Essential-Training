@@ -6,7 +6,7 @@ To create a Category model and migration in CodeIgniter 4, you can follow these 
    Use the CodeIgniter CLI to create a migration file for the `categories` table.
 
    ```bash
-   php spark make:migration CreateCategoriesTable
+   php spark make:migration create_categories_table
    ```
 
 2. **Edit the Migration File**  
@@ -139,3 +139,27 @@ class CategoryController extends BaseController
 - You can use the model in your controller to perform CRUD operations.
 
 Feel free to modify the fields and logic according to your application's needs!
+
+
+Use to migrate the files or tables
+```
+php spark migrate
+```
+
+Use to delete all the migrations
+
+```
+php spark migrate:rollback
+```
+
+Use to remigrate all the migrations
+
+```
+php spark migrate:refresh
+```
+
+Use to see the migration status.
+
+```
+php spark migrate:status
+```
