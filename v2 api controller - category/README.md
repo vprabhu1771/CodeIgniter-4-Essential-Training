@@ -1,3 +1,21 @@
+```
+php spark make:model Category
+```
+
+```
+php spark make:seeder CategorySeeder
+```
+
+```
+php spark db:seed
+```
+
+Generate Controller
+
+```
+php spark make:controller api/v2/CategoryController
+```
+
 To create an API that returns all categories, you can modify the `index()` method in your `CategoryController` to fetch all records from the `categories` table and return them in a JSON response. Using `ResponseTrait` will simplify the process of returning API responses.
 
 Here’s an implementation of the `index()` method that returns all categories:
