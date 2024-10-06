@@ -2,9 +2,114 @@
 php spark make:model Category
 ```
 
+`Category.php`
+
+```php
+<?php
+
+namespace App\Models;
+
+use CodeIgniter\Model;
+
+class Category extends Model
+{
+    protected $table            = 'categories';
+    protected $primaryKey       = 'id';
+    protected $useAutoIncrement = true;
+    protected $returnType       = 'array';
+    protected $useSoftDeletes   = false;
+    protected $protectFields    = true;
+    protected $allowedFields    = ['name', 'description', 'created_at', 'updated_at'];
+
+    protected bool $allowEmptyInserts = false;
+    protected bool $updateOnlyChanged = true;
+
+    protected array $casts = [];
+    protected array $castHandlers = [];
+
+    // Dates
+    protected $useTimestamps = false;
+    protected $dateFormat    = 'datetime';
+    protected $createdField  = 'created_at';
+    protected $updatedField  = 'updated_at';
+    protected $deletedField  = 'deleted_at';
+
+    // Validation
+    protected $validationRules      = [];
+    protected $validationMessages   = [];
+    protected $skipValidation       = false;
+    protected $cleanValidationRules = true;
+
+    // Callbacks
+    protected $allowCallbacks = true;
+    protected $beforeInsert   = [];
+    protected $afterInsert    = [];
+    protected $beforeUpdate   = [];
+    protected $afterUpdate    = [];
+    protected $beforeFind     = [];
+    protected $afterFind      = [];
+    protected $beforeDelete   = [];
+    protected $afterDelete    = [];
+}
+```
+
 ```
 php spark make:seeder CategorySeeder
 ```
+
+`CategorySeeder.php`
+
+```php
+<?php
+
+namespace App\Database\Seeds;
+
+use CodeIgniter\Database\Seeder;
+
+class CategorySeeder extends Seeder
+{
+    public function run()
+    {
+        $data = [
+            [
+                'name' => 'Electronics',
+                'description' => 'Devices, gadgets, and accessories',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'name' => 'Furniture',
+                'description' => 'Tables, chairs, and home furniture',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'name' => 'Books',
+                'description' => 'Fiction, non-fiction, and educational books',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'name' => 'Clothing',
+                'description' => 'Apparel and accessories for men and women',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'name' => 'Sports',
+                'description' => 'Sports equipment and accessories',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+        ];
+
+        // Insert the data into the 'categories' table
+        $this->db->table('categories')->insertBatch($data);
+    }
+}
+```
+
+Seed Data
 
 ```
 php spark db:seed
@@ -27,7 +132,9 @@ namespace App\Controllers\Api\V2;
 
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
+
 use CodeIgniter\API\ResponseTrait;
+
 use App\Models\Category;
 
 class CategoryController extends BaseController
@@ -59,10 +166,28 @@ In CodeIgniter, to create an API group for versioning (like `v2`), you can defin
 2. Add the following group definition for `v2` under the existing routes.
 
 ```php
+<?php
+
+use CodeIgniter\Router\RouteCollection;
+
+/**
+ * @var RouteCollection $routes
+ */
+$routes->get('/', 'Home::index');
+
+
+// API V1
+$routes->group('api/v1', ['namespace' => 'App\Controllers\Api\V1'], function($routes) {
+    
+});
+
+
+// API V2
 $routes->group('api/v2', ['namespace' => 'App\Controllers\Api\V2'], function($routes) {
     // Define a route for the CategoryController index method
-    $routes->get('categories', 'CategoryController::index');
+    $routes->get('categories', 'CategoryController::index');    
 });
+
 ```
 
 ### Explanation:
