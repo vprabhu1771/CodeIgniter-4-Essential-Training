@@ -1,3 +1,66 @@
+1. **Generate the Migration File**  
+   Use the CodeIgniter CLI to create a migration file for the `categories` table.
+
+   ```bash
+   php spark make:migration create_categories_table
+   ```
+
+2. **Edit the Migration File**  
+   Open the generated migration file located in `app/Database/Migrations/` and define the schema for the `categories` table.
+
+   ```php
+   <?php
+
+   namespace App\Database\Migrations;
+
+   use CodeIgniter\Database\Migration;
+
+   class CreateCategoriesTable extends Migration
+   {
+       public function up()
+       {
+           $this->forge->addField([
+               'id'          => [
+                   'type'           => 'INT',
+                   'unsigned'       => true,
+                   'auto_increment' => true,
+               ],
+               'name'        => [
+                   'type'       => 'VARCHAR',
+                   'constraint' => '255',
+               ],
+               'description' => [
+                   'type'       => 'TEXT',
+                   'null'       => true,
+               ],
+               'created_at'  => [
+                   'type' => 'DATETIME',
+                   'null' => true,
+               ],
+               'updated_at'  => [
+                   'type' => 'DATETIME',
+                   'null' => true,
+               ],
+           ]);
+           $this->forge->addKey('id', true);
+           $this->forge->createTable('categories');
+       }
+
+       public function down()
+       {
+           $this->forge->dropTable('categories');
+       }
+   }
+   ```
+
+### Step 2: Run the Migration
+
+Run the migration to create the `categories` table in your database:
+
+```bash
+php spark migrate
+```
+
 ```
 php spark make:model Category
 ```
