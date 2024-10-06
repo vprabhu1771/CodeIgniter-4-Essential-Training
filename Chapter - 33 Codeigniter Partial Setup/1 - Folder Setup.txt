@@ -1,0 +1,20 @@
+Folder Setup
+
+project_folder - views -> frontend
+
+project_folder - views -> frontend -> layout
+
+File Setup
+
+project_folder - views -> frontend -> layout
+
+app.php
+topbar.php
+header.php
+footer.php
+
+project_folder -  views -> frontend
+
+forget_password.php
+
+
