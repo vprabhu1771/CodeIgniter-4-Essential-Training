@@ -1,0 +1,22 @@
+Before creating your first  CodeIgniter project, make sure that your local machine has PHP and Composer installed. 
+If you are developing on macOS, PHP and Composer can be installed in minutes via  CodeIgniter Herd. 
+In addition, we recommend installing Node and NPM.
+
+
+After you have installed PHP and Composer, you may create a new  CodeIgniter project via Composer's create-project command:
+
+composer create-project codeigniter4/appstarter example-app
+
+
+Once the project has been created, start  CodeIgniter's local development server using  CodeIgniter Artisan's serve command:
+
+cd example-app
+ 
+php spark serve
+
+
+Once you have started the Spark development server, 
+your application will be accessible in your web browser at http://localhost:8080. 
+
+Next, you're ready to start taking your next steps into the CodeIgniter ecosystem. 
+Of course, you may also want to configure a database.

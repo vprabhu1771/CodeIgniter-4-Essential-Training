@@ -1,0 +1,8 @@
+Create Folder
+
+public -> image
+
+
+Create Files
+
+public -> image -> dog.jpg

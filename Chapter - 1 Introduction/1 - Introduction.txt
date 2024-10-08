@@ -1,0 +1,6 @@
+Laravel is a free and open-source PHP-based web framework for building high-end web applications. It was created by Taylor Otwell and intended for the development of web applications following the model–view–controller architectural pattern and based on Symfony. Wikipedia
+
+Programming language: PHP
+Developer: Taylor Otwell
+Initial release date: June 2011
+License: MIT License

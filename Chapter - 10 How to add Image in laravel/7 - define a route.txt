@@ -1,0 +1,14 @@
+Next, define a route in your app/Routes.php file:
+
+<?php
+
+use CodeIgniter\Router\RouteCollection;
+
+/**
+ * @var RouteCollection $routes
+ */
+$routes->get('/', 'Home::index');
+
+Change To
+
+$routes->get('/', 'HomeController::index');

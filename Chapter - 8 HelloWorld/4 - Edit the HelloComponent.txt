@@ -1,0 +1,7 @@
+Open the generated HelloComponent.blade.php file and modify it to display "Hello, World!" or any other message you desire:
+
+<!-- resources/views/components/HelloComponent.blade.php -->
+
+<div>
+    <h1>Hello, World!</h1>
+</div>

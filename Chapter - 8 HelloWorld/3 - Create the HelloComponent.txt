@@ -1,0 +1,7 @@
+In Laravel, components are a way to organize and reuse Blade templates and logic. Below is a simple example of creating a "Hello World" component in Laravel.
+
+Create a new Blade component using the Artisan command-line tool:
+
+php artisan make:component HelloComponent
+
+This will generate a new file at resources/views/components/HelloComponent.blade.php.

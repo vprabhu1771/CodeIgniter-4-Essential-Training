@@ -1,0 +1,27 @@
+Adding Images:
+
+To adapt the instructions for CodeIgniter 4, you can follow these steps:
+
+### 1. **Place Images in the `public` Directory:**
+In CodeIgniter 4, store your images in the `public` folder, specifically in `public/img`, similar to how it works in Laravel.
+
+### 2. **Reference Images in Views:**
+In CodeIgniter 4, you will use the `base_url()` function (or `site_url()` for more control) to generate the URL for your assets.
+
+Here’s how you can reference the image in your view:
+
+```html
+<img src="<?= base_url('img/logo.png') ?>" alt="Logo">
+```
+
+### Notes:
+- **`public` Directory:**  
+  In CodeIgniter 4, the `public` directory serves as the public root of your application, so files within this directory are accessible directly.
+
+- **`base_url()` Helper Function:**  
+  The `base_url()` function generates the correct URL for the assets by taking into account the base URL of your application. You don't need versioning like in Laravel, but you can implement it if necessary.
+
+- **File Permissions:**  
+  Ensure the correct file permissions for your directories and files inside the `public` folder so that images are accessible.
+
+By using `base_url()` in CodeIgniter 4, you'll achieve the same result as Laravel's `asset()` helper in terms of generating URLs for assets.

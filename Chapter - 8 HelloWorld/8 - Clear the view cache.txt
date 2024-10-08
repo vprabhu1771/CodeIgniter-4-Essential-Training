@@ -1,0 +1,7 @@
+Remember to clear the view cache if you're not seeing the changes immediately:
+
+php artisan view:clear
+
+This is a basic example to get you started with Laravel components. 
+
+You can extend this by passing data to components, using slots, and organizing your components in a more complex application structure.

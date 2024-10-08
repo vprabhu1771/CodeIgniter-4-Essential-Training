@@ -1,0 +1,5 @@
+composer create-project codeigniter4/appstarter example-app
+
+cd example-app
+ 
+php spark serve
