@@ -1,0 +1,16 @@
+Open PostMan
+
+Open New Tab
+
+POST http://localhost:8080/UsersController/login
+
+Body
+
+x-www-form-urlencoded
+
+Key		Value
+
+email		prabhutest@gmail.com
+
+password	12345
+

@@ -1,0 +1,16 @@
+cd app/ThridParty
+
+
+mkdir Firebase
+
+
+download Firebase/php-jwt.zip
+
+
+extract Firebase/php-jwt.zip
+
+
+copy to app/ThridParty/Firebase/php-jwt
+
+
+rename folder app/ThridParty/Firebase/jwt
