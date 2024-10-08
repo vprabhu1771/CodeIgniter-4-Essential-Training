@@ -1,28 +1,29 @@
 <?php
 
-namespace Database\Seeders;
+namespace App\Database\Seeds;
 
-use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use CodeIgniter\Database\Seeder;
 
-class DepartmentsTableSeeder extends Seeder
+class DepartmentSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
-        // Sample data for the "departments" table
-        $departments = [
-            ['name' => 'Human Resources'],
-            ['name' => 'Finance'],
-            ['name' => 'Marketing'],
-            // Add more departments as needed
+        $data = [
+            [
+                'name' => 'Human Resources',
+            ],
+            [
+                'name' => 'Finance',
+            ],
+            [
+                'name' => 'Marketing',
+            ],
+            [
+                'name' => 'IT Department',
+            ],
         ];
 
-        // Insert the data into the "departments" table
-        DB::table('departments')->insert($departments);
+        // Using Query Builder to insert data
+        $this->db->table('departments')->insertBatch($data);
     }
 }

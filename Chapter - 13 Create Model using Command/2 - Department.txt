@@ -2,19 +2,32 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use CodeIgniter\Model;
 
 class Department extends Model
 {
-    use HasFactory;
+    protected $table      = 'departments';
+    protected $primaryKey = 'id';
 
-    protected $table = 'departments';
+    protected $useAutoIncrement = true;
 
-    protected $fillable = [
-        'name'
+    // Specify the fields that can be inserted/updated
+    protected $allowedFields = ['name'];
+
+    // Enable timestamps
+    protected $useTimestamps = true;
+    protected $createdField  = 'created_at';
+    protected $updatedField  = 'updated_at';
+
+    // Optionally, you can add validation rules if needed
+    protected $validationRules    = [
+        'name' => 'required|min_length[3]|max_length[100]'
     ];
-   
+    protected $validationMessages = [
+        'name' => [
+            'required' => 'The department name is required',
+            'min_length' => 'The department name must be at least 3 characters long',
+            'max_length' => 'The department name must not exceed 100 characters'
+        ]
+    ];
 }

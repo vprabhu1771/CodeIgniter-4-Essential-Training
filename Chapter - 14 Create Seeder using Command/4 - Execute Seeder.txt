@@ -1,5 +1,5 @@
-php artisan db:seed --class=DepartmentSeeder
+php spark db:seed DepartmentSeeder
 
 OR
 
-php artisan db:seed
+php spark db:seed

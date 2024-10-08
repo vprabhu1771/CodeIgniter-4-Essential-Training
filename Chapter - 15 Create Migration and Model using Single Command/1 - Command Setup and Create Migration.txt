@@ -1,7 +1,0 @@
-It will create model with migration class
-
-php artisan make:model Department -m
-
-OR
-
-php artisan make:model Department --migration

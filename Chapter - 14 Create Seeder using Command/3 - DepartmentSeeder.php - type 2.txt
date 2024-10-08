@@ -1,29 +1,117 @@
+The `insertBatch()` method in CodeIgniter 4 allows you to insert multiple rows of data into the database in a single query. Here’s an example of how to use `insertBatch()` in a seeder or model:
+
+### Example of `insertBatch()` in a Seeder
+
+```php
 <?php
 
-namespace Database\Seeders;
+namespace App\Database\Seeds;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
-
-use App\Models\Department;
+use CodeIgniter\Database\Seeder;
 
 class DepartmentSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
-    public function run(): void
+    public function run()
     {
-        // Sample data for the "departments" table
-        $departments = [
-            ['name' => 'Human Resources'],
-            ['name' => 'Finance'],
-            ['name' => 'Marketing'],
-            // Add more departments as needed
+        // Prepare an array of data to insert
+        $data = [
+            [
+                'name' => 'Human Resources',
+            ],
+            [
+                'name' => 'Finance',
+            ],
+            [
+                'name' => 'Marketing',
+            ],
+            [
+                'name' => 'IT Department',
+            ],
         ];
 
-        // Insert the data into the "departments" table
-        Department::insert($departments);
-
+        // Insert multiple rows into the departments table using insertBatch()
+        $this->db->table('departments')->insertBatch($data);
     }
 }
+```
+
+### Example of `insertBatch()` in a Model
+
+You can also use `insertBatch()` in a model if you want to insert multiple rows in a controller or service.
+
+1. **Inserting using a Model:**
+
+```php
+<?php
+
+namespace App\Models;
+
+use CodeIgniter\Model;
+
+class DepartmentModel extends Model
+{
+    protected $table      = 'departments';
+    protected $primaryKey = 'id';
+    protected $allowedFields = ['name'];
+
+    // Function to insert multiple rows using insertBatch()
+    public function insertMultipleDepartments($data)
+    {
+        $this->insertBatch($data);
+    }
+}
+```
+
+2. **Controller Example:**
+
+```php
+<?php
+
+namespace App\Controllers;
+
+use App\Models\DepartmentModel;
+
+class DepartmentController extends BaseController
+{
+    public function createDepartments()
+    {
+        $departmentModel = new DepartmentModel();
+
+        // Prepare an array of data to insert
+        $data = [
+            [
+                'name' => 'Human Resources',
+            ],
+            [
+                'name' => 'Finance',
+            ],
+            [
+                'name' => 'Marketing',
+            ],
+            [
+                'name' => 'IT Department',
+            ],
+        ];
+
+        // Call the model's insertBatch() method
+        $departmentModel->insertMultipleDepartments($data);
+
+        return "Departments inserted successfully!";
+    }
+}
+```
+
+### How `insertBatch()` Works:
+
+- `insertBatch($data)` takes an array of associative arrays. Each associative array represents a row, where the keys are the column names, and the values are the column values to insert.
+- This method executes a single SQL `INSERT` query with multiple `VALUES`, which is more efficient than inserting each row individually.
+
+### SQL Equivalent:
+The above batch insert is equivalent to:
+
+```sql
+INSERT INTO departments (name) 
+VALUES ('Human Resources'), ('Finance'), ('Marketing'), ('IT Department');
+```
+
+This method improves performance when inserting a large number of records at once.

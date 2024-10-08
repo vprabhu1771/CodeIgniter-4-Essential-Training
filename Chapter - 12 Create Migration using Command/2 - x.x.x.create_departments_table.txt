@@ -1,28 +1,44 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+namespace App\Database\Migrations;
 
-return new class extends Migration
+use CodeIgniter\Database\Migration;
+
+class CreateDepartmentsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+    public function up()
     {
-        Schema::create('departments', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->timestamps();
-        });
+        $this->forge->addField([
+            'id'          => [
+                'type'           => 'INT',
+                'constraint'     => 5,
+                'unsigned'       => true,
+                'auto_increment' => true,
+            ],
+            'name'        => [
+                'type'       => 'VARCHAR',
+                'constraint' => '100',
+            ],
+            'created_at'  => [
+                'type'       => 'DATETIME',
+                'null'       => true,
+            ],
+            'updated_at'  => [
+                'type'       => 'DATETIME',
+                'null'       => true,
+            ],
+        ]);
+
+        // Set primary key
+        $this->forge->addKey('id', true);
+
+        // Create table
+        $this->forge->createTable('departments');
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('departments');
+        // Drop table
+        $this->forge->dropTable('departments');
     }
-};
+}
