@@ -1,0 +1,5 @@
+php artisan db:seed --class=DepartmentSeeder
+
+OR
+
+php artisan db:seed

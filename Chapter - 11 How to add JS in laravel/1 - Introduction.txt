@@ -1,0 +1,26 @@
+Adding JavaScript (Scripts):
+
+To achieve the same functionality in CodeIgniter 4, you'll need to follow these steps to include a JavaScript file (`scripts.js`) in your views:
+
+1. **Create the JS file:**
+
+   - Place your JavaScript file in the `public/js` directory, just like in Laravel. For example, create `public/js/scripts.js`.
+
+2. **Include the JS file in your CodeIgniter 4 views:**
+
+   - Open the view file where you want to include the JS file and add the following line before the closing `</body>` tag:
+
+```php
+<script src="<?= base_url('js/scripts.js') ?>"></script>
+```
+
+### Explanation:
+
+- In CodeIgniter 4, the `base_url()` function is used to generate the URL for assets like JS and CSS files. It ensures the correct base URL is used for your application.
+- The `public` directory is accessible in CodeIgniter 4, just like in Laravel.
+  
+### Notes:
+
+- Ensure that the `public/js/scripts.js` file is accessible by the web server. You may need to check your file permissions.
+  
+Now, you can use your JavaScript from `scripts.js` in the views where you've included this script tag.

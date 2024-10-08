@@ -1,0 +1,8 @@
+Create Folder
+
+public -> js
+
+
+Create Files
+
+public -> js -> main.js
