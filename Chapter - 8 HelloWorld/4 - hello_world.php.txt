@@ -1,0 +1,7 @@
+<!-- Create the hello_world.php file and modify it to display "Hello, World!" or any other message you desire: -->
+
+<!-- app/views/hello_world.php -->
+
+<div>
+    <h1>Hello, World!</h1>
+</div>

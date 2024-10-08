@@ -1,13 +1,10 @@
-You can then render the welcome.blade.php view in your routes or controllers.
+app\Config\Routes.php
 
-For example, in routes/web.php:
+<?php
 
-// routes/web.php
+use CodeIgniter\Router\RouteCollection;
 
-use Illuminate\Support\Facades\Route;
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Now, when you visit the root URL of your Laravel application, you should see the "Hello, World!" message rendered by the HelloComponent.
+/**
+ * @var RouteCollection $routes
+ */
+$routes->get('/', 'HomeController::index');
