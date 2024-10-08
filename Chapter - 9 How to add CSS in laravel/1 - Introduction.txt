@@ -9,12 +9,12 @@ To change the instructions from Laravel to CodeIgniter 4, follow these steps:
    - Open the view file where you want to include the CSS file (e.g., `app/Views/welcome.php`) and add the following line in the `<head>` section:
 
 ```html
-<link rel="stylesheet" href="<?= base_url('css/styles.css'); ?>">
+<link rel="stylesheet" href="<?= base_url('css/main.css'); ?>">
 ```
 
 ### Note:
 - The `public` directory in CodeIgniter 4 is the root directory for all publicly accessible files, similar to Laravel.
 - The `base_url()` function in CodeIgniter 4 generates the base URL of your application, and it will properly link to the `css/styles.css` file in the `public` directory.
-- Ensure the `public/css/styles.css` file has the correct permissions so that it is accessible to the public.
+- Ensure the `public/css/main.css` file has the correct permissions so that it is accessible to the public.
 
 With these adjustments, the styles will be correctly included in your CodeIgniter 4 views.

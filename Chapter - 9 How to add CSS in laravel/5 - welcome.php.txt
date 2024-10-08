@@ -9,7 +9,7 @@ open app\views\welcome.php
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 
-    <link rel="stylesheet" href="<?= base_url('css/styles.css'); ?>">
+    <link rel="stylesheet" href="<?= base_url('css/main.css'); ?>">
 
 </head>
 <body>
