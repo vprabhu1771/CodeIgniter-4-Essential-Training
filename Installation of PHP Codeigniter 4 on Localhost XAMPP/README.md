@@ -18,9 +18,7 @@ composer create-project codeigniter4/appstarter project-root
 
 8. Now click on `public` folder
 
-
-
-8. Remove CI4 public/index.php with .htaccess rewrite rule on
+9. Remove CI4 public/index.php with .htaccess rewrite rule on
 
 # https://stackoverflow.com/questions/66592111/remove-ci4-public-index-php-with-htaccess-rewrite-rule-on-subdomain-folder
 
