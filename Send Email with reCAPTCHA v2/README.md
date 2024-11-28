@@ -17,13 +17,16 @@ Here’s the implementation:
 public $fromEmail = 'your-email@gmail.com'; // Your Gmail address
 public $fromName = 'Your Name';
 public $SMTPHost = 'smtp.gmail.com';
+public $protocol = 'smtp';
 public $SMTPUser = 'your-email@gmail.com';
 public $SMTPPass = 'your-app-password'; // Gmail App Password
 public $SMTPPort = 587;
+public $SMTPTimeout = 60; // Timeout in seconds
 public $SMTPCrypto = 'tls';
 public $mailType = 'html';
 public $charset = 'utf-8';
 public $newline = "\r\n";
+public $wordWrap = true;
 ```
 
 ---
