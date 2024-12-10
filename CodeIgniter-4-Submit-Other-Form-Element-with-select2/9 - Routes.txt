@@ -1,0 +1,3 @@
+open App/Config/Routes
+
+$routes->resource('city');

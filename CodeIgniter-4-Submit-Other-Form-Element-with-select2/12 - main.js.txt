@@ -1,0 +1,66 @@
+$(document).ready(function(){
+
+    $("#add_user_form").submit(function (e){
+        e.preventDefault();
+
+        var form = $('#add_user_form');
+
+        $.ajax({
+            url: $(form).attr('action'),
+            method: $(form).attr('method'),
+            data: form.serialize(),
+            processData: false,
+            dataType: 'json',
+            beforeSend: function ()
+            {
+                
+            },
+            success: function (data){
+                console.log(data);
+
+                if (data.status === 200)
+                {
+                    Swal.fire({
+
+                        icon: 'success',
+
+                        title: 'Success',
+
+                        text: data.messages,
+
+                        type: "success",
+
+                    })
+                        .then(function()
+                        {
+                            $("#add_user_form")[0].reset();
+                            location.reload();
+                            
+                        });
+
+                }
+                else if(data.status === 500)
+                {
+                    user_name = JSON.parse(JSON.stringify(data.messages['user_name']));
+
+                    // console.log(JSON.parse(JSON.stringify(data.messages['user_name'])));
+
+                    if (user_name !== undefined) 
+                    {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Warning',
+                            text: user_name,
+                        })    
+                    }
+                    
+                }
+            },
+        })
+    });
+
+   
+
+});
+  
+  

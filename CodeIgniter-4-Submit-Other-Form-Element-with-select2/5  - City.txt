@@ -1,0 +1,138 @@
+<?php
+
+namespace App\Controllers;
+
+use CodeIgniter\RESTful\ResourceController;
+
+use App\Models\CityModel;
+
+class City extends ResourceController
+{
+
+    protected $modelName = 'App\Models\CityModel';
+    protected $format    = 'json';
+
+
+    /**
+     * Return an array of resource objects, themselves in array format
+     *
+     * @return mixed
+     */
+    public function index()
+    {
+        return $this->respond($this->model->findAll());
+    }
+
+    /**
+     * Return the properties of a resource object
+     *
+     * @return mixed
+     */
+    public function show($id = null)
+    {
+        //
+    }
+
+    /**
+     * Return a new resource object, with default properties
+     *
+     * @return mixed
+     */
+    public function new()
+    {
+        //
+    }
+
+    /**
+     * Create a new resource object, from "posted" parameters
+     *
+     * @return mixed
+     */
+    public function create()
+    {
+
+        $rules = [
+			"city_name" => "required|is_unique[tbl_city.city_name]|min_length[1]",
+		];
+
+        $messages = [
+			"city_name" => [
+				"required" => "City Name is required",
+                "is_unique" => "City Name is Already Exists",
+                "min_length" => "City Name must be minimum one character"
+			],
+		];
+
+
+
+        if ($this->request->isAJAX()) 
+        {
+            // $model = new UomModel();
+
+            if (!$this->validate($rules, $messages)) {
+
+                $response = [
+                    'status' => 500,
+                    'error' => true,
+                    'messages' => $this->validator->getErrors(),
+                    'data' => []
+                ];
+
+            } else {
+    
+                $city_data = [
+
+                    "city_name" => $this->request->getPost('city_name'),
+                
+                ];
+                
+                $this->model->save($city_data);
+    
+                $data = "success";
+    
+                $response = [
+                    'status' => 200,
+                    'error' => false,
+                    'messages' => 'city Created successfully',
+                    'data' => [
+                        $data
+                    ]
+                ];
+            }
+
+            return $this->respondCreated($response);
+            
+        }
+
+    }
+
+    /**
+     * Return the editable properties of a resource object
+     *
+     * @return mixed
+     */
+    public function edit($id = null)
+    {
+        //
+    }
+
+    /**
+     * Add or update a model resource, from "posted" properties
+     *
+     * @return mixed
+     */
+    public function update($id = null)
+    {
+        //
+    }
+
+    /**
+     * Delete the designated resource object from the model
+     *
+     * @return mixed
+     */
+    public function delete($id = null)
+    {
+        //
+    }
+}
