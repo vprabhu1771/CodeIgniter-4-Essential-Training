@@ -104,13 +104,13 @@ use CodeIgniter\Email\Email;
 
 class EmailController extends Controller
 {
-    public function showForm()
+    public function index()
     {
         // Load the form view
         return view('email_form');
     }
 
-    public function sendEmail()
+    public function send()
     {
         // Your reCAPTCHA secret key
         $recaptchaSecret = getenv('RECAPTCHA_SECRET_KEY');
