@@ -1,0 +1,67 @@
+<div class="modal add_country_model" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add New Country</h5>
+
+            </div>
+            <div class="modal-body">
+                <form action="<?= base_url("country/create") ?>" method="post" id="add_country_form">
+
+                    <div class="form-group">
+
+                        <label class="form-label">Country Name</label>
+
+                        <input type="text" class="form-control" name="country_name" id="country_name" placeholder="eg: India">
+                        
+                        <div class="valid-feedback" id="country_name_valid_feedback">
+                            
+                        </div>
+                        
+                        <div class="invalid-feedback" id="country_name_invalid_feedback">
+                            
+                        </div>
+
+                    </div>
+                    
+                    <br>
+                    
+                    <div class="form-group">
+
+                        <label class="form-label">Country Status</label>
+
+                        <select class="form-select" name="country_status" id="country_status">
+                            
+                            <option value="none" selected>Open this select menu</option>
+                            
+                            <option value="active">Active</option>
+                            
+                            <option value="inactive">Inactive</option>                
+
+                        </select>
+                        
+                        <div class="valid-feedback" id="country_status_valid_feedback">
+                            Looks good!
+                        </div>
+                        
+                        <div class="invalid-feedback" id="country_status_invalid_feedback">
+                            Please Enter Alphabets Only.
+                        </div>
+
+                    </div>
+
+                    <br>
+
+                    <div class="form-group">
+
+                        <button type="submit" class="btn btn-block btn-success" id="createCountryBtn">Create</button>
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+

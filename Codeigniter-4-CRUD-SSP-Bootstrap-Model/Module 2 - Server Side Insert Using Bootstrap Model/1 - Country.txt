@@ -1,0 +1,79 @@
+<?php
+
+namespace App\Controllers;
+
+use CodeIgniter\Controller;
+
+use App\Models\CountryModel;
+
+use CodeIgniter\API\ResponseTrait;
+
+class Country extends Controller
+{
+
+    use ResponseTrait;
+
+    public function __construct()
+    {
+        require_once APPPATH . 'ThirdParty/ssp.php';
+
+        $this->db = db_connect();
+    }
+
+    
+
+    public function create()
+    {
+
+        $rules = [
+			"country_name" => "is_unique[country.country_name]",
+		];
+
+        $messages = [
+			"country_name" => [
+                "is_unique" => "Course Name is Already Exists",
+			],
+		];
+
+
+
+        if ($this->request->isAJAX()) 
+        {
+            $model = new CountryModel();
+
+            if (!$this->validate($rules, $messages)) {
+
+                $response = [
+                    'status' => 500,
+                    'error' => true,
+                    'messages' => $this->validator->getErrors(),
+                    'data' => []
+                ];
+
+            } else {
+    
+                $country_data = [
+
+                    "country_name" => strtoupper($this->request->getPost('country_name')),
+                
+                    "country_status" => $this->request->getPost('country_status')
+                ];
+                
+                $model->save($country_data);
+    
+                $data = "success";
+    
+                $response = [
+                    'status' => 200,
+                    'error' => false,
+                    'messages' => 'Country Created successfully',
+                    'data' => []
+                ];
+            }
+
+            return $this->respondCreated($response);
+            
+        }
+
+    }
+}

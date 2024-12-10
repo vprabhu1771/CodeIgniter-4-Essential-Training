@@ -1,0 +1,39 @@
+$(document).ready(function(){
+
+    $('.city_select2').select2({
+        placeholder:'Select City',
+        theme:'bootstrap-5',
+        tags:true,
+    }).on('select2:close', function(){
+
+        var element = $(this);
+        var new_city = $.trim(element.val());
+
+        if(new_city != '')
+        {
+            $.ajax({
+                url: "city/create",
+                method:"POST",
+                data:{
+                    city_name : new_city
+                },
+                success:function(response)
+                {
+                    console.log(response);
+                    
+                    console.log(JSON.stringify(response));
+                    
+                    console.log(JSON.stringify(response["data"]));
+
+                    console.log(JSON.stringify(response["data"][0]));
+                    
+                    console.log(JSON.parse(JSON.stringify(response["data"][0])));
+                }
+            })
+        }
+
+    });
+
+});
+  
+  

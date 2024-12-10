@@ -1,0 +1,17 @@
+<?php
+
+namespace App\Controllers;
+
+use App\Models\CityModel;
+
+class Home extends BaseController
+{
+    public function index()
+    {
+        $model = new CityModel();
+
+        $data['city'] = $model->findAll();
+        
+        return view('welcome_message2', $data);
+    }
+}

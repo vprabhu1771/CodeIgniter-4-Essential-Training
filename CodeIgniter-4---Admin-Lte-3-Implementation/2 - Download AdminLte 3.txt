@@ -1,0 +1,32 @@
+https://adminlte.io/
+
+Click Download 
+
+Go To Github Repository Page 
+
+
+Download Latest Version
+
+Extract Zip File
+
+Go to Adminlte Folder
+
+Copy
+
+dist, plugins Folder
+
+
+under ci_admin_lte\public
+
+Create Foler assets\admin-lte
+
+
+
+Paste
+
+under ci_admin_lte\public\assets\admin-lte
+
+dist, plugins Folder 
+
+
+

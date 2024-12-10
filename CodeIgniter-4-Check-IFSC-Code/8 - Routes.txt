@@ -1,0 +1,6 @@
+Open ci_ifsc_code -> app -> Config -> Routes.php
+
+
+
+$routes->get("ifsc-data", "IFSCController::index");
+$routes->get("lookup_ifsc", "IFSCController::lookup_ifsc");

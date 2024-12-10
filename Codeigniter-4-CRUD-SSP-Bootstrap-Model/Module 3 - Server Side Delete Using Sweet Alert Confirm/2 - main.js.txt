@@ -1,0 +1,117 @@
+$(document).ready(function(){
+
+    // Controller
+    var controller = "Country";
+
+    // Delete Button
+
+    $(document).on('click','#delete_country_btn', function (){
+
+        // console.log("Delete Button Work");
+
+        var id = $(this).attr("data-id");
+
+        Swal.fire({
+
+            title: 'Are you sure?',
+
+            text: "You want to delete",
+
+            type: "success",
+
+            showCancelButton: true,
+
+            cancelButtonText: "Cancel",
+
+            confirmButtonText: "Yes, Delete",
+
+            cancelButtonColor: "#d33",
+
+            confirmButtonColor: "#556eeb",
+
+            width: 500,
+
+            allowOutsideClick: false
+
+        }).then(function (result){
+            // console.log(result);
+
+            if (result.value)
+            {
+                return $.ajax({
+                    type: "DELETE",
+                    url:  controller + '/delete',
+                    data: {
+                        "course_id": id
+                    },
+                    dataType: 'JSON',
+                    success: function(data)
+                    {
+                        // console.log(data);
+
+                        if (data.status == 200)
+                        {
+                            Swal.fire({
+
+                                icon: 'success',
+
+                                title: 'Success',
+
+                                text: data.messages,
+
+                                type: "success",
+
+                                didOpen: function () {
+                                    Swal.showLoading()
+                                    // AJAX request simulated with setTimeout
+                                    setTimeout(function () {
+                                      Swal.close()
+                                    }, 2000)
+                                }
+
+                            }).then(function()
+                                {
+                                    location.reload();
+                                });
+
+                        }
+                        else if(data.status == 500)
+                        {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Warning',
+                                text: data.messages,
+                            })
+                        }
+
+
+                    },
+                    error: function(data)
+                    {
+                        console.log(data);
+                    }
+                });
+            }
+            else
+            {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Delete Cancelled',
+                    text: "It's Safe",
+                    didOpen: function () {
+                        Swal.showLoading()
+                        // AJAX request simulated with setTimeout
+                        setTimeout(function () {
+                          Swal.close()
+                        }, 2000)
+                    } 
+                })
+            }
+
+        });
+
+    });
+
+    
+
+});

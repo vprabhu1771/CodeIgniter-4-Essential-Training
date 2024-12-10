@@ -1,0 +1,6 @@
+open ci_ifsc_code -> composer.json
+
+"require": {
+  ...
+  "php-http/guzzle6-adapter":"^1.0",
+}

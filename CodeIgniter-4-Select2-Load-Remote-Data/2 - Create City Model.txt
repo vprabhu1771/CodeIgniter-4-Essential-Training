@@ -1,0 +1,1 @@
+php spark make:model City --suffix

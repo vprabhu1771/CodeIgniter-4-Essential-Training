@@ -1,0 +1,118 @@
+<?php
+
+namespace App\Controllers;
+
+use CodeIgniter\Controller;
+
+use App\Models\CountryModel;
+
+use CodeIgniter\API\ResponseTrait;
+
+class Country extends Controller
+{
+
+    use ResponseTrait;
+
+    public function __construct()
+    {
+        require_once APPPATH . 'ThirdParty/ssp.php';
+
+        $this->db = db_connect();
+    }
+
+    public function index()
+    {
+        $country_model = new CountryModel();
+
+        // DB Details
+
+        $db_details = array(
+            
+            "host" => $this->db->hostname,
+            
+            "user" => $this->db->username,
+            
+            "password" => $this->db->password,
+            
+            "db" => $this->db->database,
+
+        );
+
+        $table = $country_model->table;
+
+        $primaryKey = $country_model->primaryKey;
+
+        $columns = array(
+
+            array(
+                
+                "db" => "country_id",
+
+                "dt" => 0,
+            ),
+            array(
+                
+                "db" => "country_name",
+
+                "dt" => 1,
+            ),            
+            array(
+                
+                "db" => "country_status",
+
+                "dt" => 2,
+
+                "formatter" => function ($value, $row) {
+
+                    if ($value == "active") 
+                    {
+                        return "<span class=\"badge bg-primary\">" . strtoupper($value) . "</span>";
+                    }
+                    elseif ($value == "inactive") 
+                    {
+                        return "<span class=\"badge bg-danger\">" . strtoupper($value) . "</span>";
+                    }
+
+                },
+            ),            
+            array(
+                
+                "db" => "country_id",
+
+                "dt" => 3,
+
+                "formatter" => function ($value, $row) {
+
+                    return "<a class=\"btn btn-sm\" data-id=\"$value\" id=\"clone_country_btn\" style=\"border: 3px solid #2980b9\"><i class=\"fas fa-clone\" style=\"color:#2980b9\"></i></a>";
+
+                },
+            ),
+            array(
+                
+                "db" => "country_id",
+
+                "dt" => 4,
+
+                "formatter" => function ($value, $row) {
+
+                    return "<a class=\"btn btn-sm\" data-id=\"$value\" id=\"update_country_btn\" style=\"border: 3px solid #967bdc\"><i class=\"fas fa-edit\" style=\"color:#967bdc\"></i></a>";
+
+                },
+            ),
+            array(
+
+                "db" => "country_id",
+
+                "dt" => 5,
+
+                "formatter" => function ($value, $row) {
+
+                    return "<a class=\"btn btn-sm\" data-id=\"$value\" id=\"delete_country_btn\" style=\"border: 3px solid #db4453\"><i class=\"fas fa-trash\" style=\"color:#db4453;\"></i></a>";
+
+                },
+            ),
+        );
+
+        return $this->respond(\SSP::simple($_GET, $db_details, $table, $primaryKey, $columns), 200);
+    }
+}

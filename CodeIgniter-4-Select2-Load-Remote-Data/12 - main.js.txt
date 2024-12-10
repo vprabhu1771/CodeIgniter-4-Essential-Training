@@ -1,0 +1,120 @@
+$(document).ready(function(){
+    
+    $('.city_select2').select2({
+        ajax: { 
+            url: "city/create",
+            type: "post",
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+               // CSRF Hash
+               var csrfName = $('.txt_csrfname').attr('name'); // CSRF Token name
+               var csrfHash = $('.txt_csrfname').val(); // CSRF hash
+  
+               return {
+                  searchTerm: params.term, // search term
+                  [csrfName]: csrfHash // CSRF Token
+               };
+            },
+            processResults: function (response) {
+   
+               // Update CSRF Token
+               $('.txt_csrfname').val(response.token); 
+
+               // Transform JSON data Into objects
+                var json = [];
+
+               $.each(response.data, function(index, value){
+                
+                    // create array of object property named id and a property named text very important
+                    var output = {
+                        id: value.city_id,
+                        text: value.city_name
+                    };
+
+                    json.push(output);
+                //    console.log(JSON.parse(JSON.stringify(value.city_name)));
+               })
+
+               console.log(json);
+  
+               return {
+                //   results: response.data
+                  results: json
+               };
+            },
+            cache: true
+        }
+
+    }).on('select2:close', function(){
+
+        var element = $(this);
+        var selected_city = $.trim(element.val());
+
+        console.log(selected_city);        
+    });
+
+    $("#add_user_form").submit(function (e){
+        e.preventDefault();
+
+        var form = $('#add_user_form');
+
+        $.ajax({
+            url: $(form).attr('action'),
+            method: $(form).attr('method'),
+            data: form.serialize(),
+            processData: false,
+            dataType: 'json',
+            beforeSend: function ()
+            {
+                
+            },
+            success: function (data){
+                console.log(data);
+
+                if (data.status === 200)
+                {
+                    Swal.fire({
+
+                        icon: 'success',
+
+                        title: 'Success',
+
+                        text: data.messages,
+
+                        type: "success",
+
+                    })
+                        .then(function()
+                        {
+                            $("#add_user_form")[0].reset();
+                            location.reload();
+                            
+                        });
+
+                }
+                else if(data.status === 500)
+                {
+                    user_name = JSON.parse(JSON.stringify(data.messages['user_name']));
+
+                    // console.log(JSON.parse(JSON.stringify(data.messages['user_name'])));
+
+                    if (user_name !== undefined) 
+                    {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Warning',
+                            text: user_name,
+                        })    
+                    }
+                    
+                }
+            },
+        })
+    });
+
+   
+
+});
+  
+  

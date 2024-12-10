@@ -1,0 +1,1 @@
+XAMMP -> MYSQL -> your database -> Routines -> add routine

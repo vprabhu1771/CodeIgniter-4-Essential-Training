@@ -1,0 +1,33 @@
+<?= $this->extend('layouts/base') ?>
+
+<?= $this->section('content') ?>
+    
+<a class="btn btn-sm btn-primary" id="add_country_btn">Add Country</a>
+
+<div class="container">
+
+    <table id="country_data_table" class="table table-bordered table-striped">
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Country Name</th>
+                <th>Country Status</th>
+                <th>Clone</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+
+    </table>
+
+</div>
+    
+
+<?= $this->include('country_ui/models/add_country_model'); ?>
+
+<?= $this->include('country_ui/models/update_country_model'); ?>
+
+<?= $this->include('country_ui/models/clone_country_model'); ?>
+
+<?= $this->endSection() ?>

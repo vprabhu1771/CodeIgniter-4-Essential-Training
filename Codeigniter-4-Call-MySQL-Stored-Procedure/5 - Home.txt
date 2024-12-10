@@ -1,0 +1,33 @@
+open app/Controllers/Home.php
+
+<?php
+
+namespace App\Controllers;
+
+class Home extends BaseController
+{
+    public function __construct()
+	{
+		// Loading db instance
+		$this->db = db_connect();
+	}
+
+    public function index()
+    {
+        $blogs = $this->db->query("CALL get_all()")->getResult();
+
+        
+        dd($blogs);
+
+        // return view('welcome_message');
+    }
+
+    public function show($id)
+    {
+        // echo $id;
+        
+        $blog = $this->db->query("CALL get(" . $id .  ")")->getRow();
+
+        dd($blog);
+    }
+}

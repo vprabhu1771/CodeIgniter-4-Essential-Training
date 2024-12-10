@@ -1,0 +1,7 @@
+rename env to .env
+
+# CI_ENVIRONMENT = production
+
+ // modify
+ 
+CI_ENVIRONMENT = development

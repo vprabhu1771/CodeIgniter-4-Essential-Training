@@ -1,0 +1,3 @@
+ci4_crud_ssp -> app -> Views -> layouts
+
+File Name: base.php

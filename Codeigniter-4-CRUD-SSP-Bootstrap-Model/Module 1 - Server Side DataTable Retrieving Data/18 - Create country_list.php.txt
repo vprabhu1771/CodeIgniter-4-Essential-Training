@@ -1,0 +1,3 @@
+ci4_crud_ssp -> app -> Views -> country_ui
+
+File Name: country_list.php

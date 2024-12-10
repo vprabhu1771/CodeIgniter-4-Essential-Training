@@ -1,0 +1,88 @@
+$(document).ready(function(){
+    
+    // Clone Button
+
+    $(document).on('click','#clone_country_btn', function (res){
+
+        // console.log("Clone Button Work");
+
+        $('.clone_country_model').modal('show');
+
+        var id = $(this).attr("data-id");
+
+        console.log(id);
+
+        $.get("country/show/"+id, function (data){ 
+            
+            // console.log(data);
+
+            $('.country_id').val(id);
+            
+            $('.country_name').val(data['country_name']);
+
+            $('.country_status').val(data['country_status']).change();
+
+        });
+
+    });
+
+    $("#clone_country_form").submit(function (e){
+        e.preventDefault();
+
+        var form = $('#clone_country_form');
+
+        $.ajax({
+            url: $(form).attr('action'),
+            method: $(form).attr('method'),
+            data: form.serialize(),
+            processData: false,
+            dataType: 'json',
+            beforeSend: function ()
+            {
+                
+            },
+            success: function (data){
+                console.log(data);
+
+                if (data.status === 200)
+                {
+                    Swal.fire({
+
+                        icon: 'success',
+
+                        title: 'Success',
+
+                        text: data.messages,
+
+                        type: "success",
+
+                        didOpen: function () {
+                            Swal.showLoading()
+                            // AJAX request simulated with setTimeout
+                            setTimeout(function () {
+                              Swal.close()
+                            }, 2000)
+                        }
+
+                    })
+                        .then(function()
+                        {
+                            $("#clone_country_form")[0].reset();
+                            location.reload();
+                            
+                        });
+
+                }
+                else if(data.status === 500)
+                {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Warning',
+                        text: JSON.stringify(data.messages),
+                    })
+                }
+            },
+        })
+    });
+
+});

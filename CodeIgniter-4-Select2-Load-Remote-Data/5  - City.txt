@@ -1,0 +1,124 @@
+<?php
+
+namespace App\Controllers;
+
+use CodeIgniter\RESTful\ResourceController;
+
+use App\Models\CityModel;
+
+class City extends ResourceController
+{
+
+    protected $modelName = 'App\Models\CityModel';
+    protected $format    = 'json';
+
+
+    /**
+     * Return an array of resource objects, themselves in array format
+     *
+     * @return mixed
+     */
+    public function index()
+    {
+        return $this->respond($this->model->findAll());
+    }
+
+    /**
+     * Return the properties of a resource object
+     *
+     * @return mixed
+     */
+    public function show($id = null)
+    {
+        //
+    }
+
+    /**
+     * Return a new resource object, with default properties
+     *
+     * @return mixed
+     */
+    public function new()
+    {
+        
+    }
+
+    /**
+     * Create a new resource object, from "posted" parameters
+     *
+     * @return mixed
+     */
+    public function create()
+    {
+
+        $request = service('request');
+        $postData = $request->getPost();
+  
+        $response = array();
+  
+        // Read new token and assign in $response['token']
+        $response['token'] = csrf_hash();
+  
+        if(!isset($postData['searchTerm'])){
+           // Fetch record
+           $citys = new CityModel();
+           $citylist = $citys->select('city_id,city_name')
+              ->orderBy('city_name')
+              ->findAll(5);
+        }else{
+           $searchTerm = $postData['searchTerm'];
+  
+           // Fetch record
+           $citys = new CityModel();
+           $citylist = $citys->select('city_id,city_name')
+              ->like('city_name',$searchTerm)
+              ->orderBy('city_name')
+              ->findAll(5);
+        } 
+  
+        $data = array();
+        foreach($citylist as $city){
+           $data[] = array(
+              "city_id" => $city['city_id'],
+              "city_name" => $city['city_name'],
+           );
+        }
+  
+        $response['data'] = $data;
+  
+        return $this->respond($response);
+
+    }
+
+    /**
+     * Return the editable properties of a resource object
+     *
+     * @return mixed
+     */
+    public function edit($id = null)
+    {
+        //
+    }
+
+    /**
+     * Add or update a model resource, from "posted" properties
+     *
+     * @return mixed
+     */
+    public function update($id = null)
+    {
+        //
+    }
+
+    /**
+     * Delete the designated resource object from the model
+     *
+     * @return mixed
+     */
+    public function delete($id = null)
+    {
+        //
+    }
+
+    
+}

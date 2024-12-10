@@ -1,0 +1,161 @@
+$(document).ready(function(){
+
+    // Show Add Country Model
+
+    $(document).on('click', "#add_country_btn", function (){
+        
+        // console.log("add button work");
+
+        $('.add_country_model').modal('show');
+
+        $('#country_status').val("none").change();
+
+        if ($("#country_name").val() == 0 && $('#country_status').val() == "none") 
+        {
+            $('#createCountryBtn').prop("disabled", true);
+        }
+
+    });
+
+    $("#country_name").blur(validateCountryName);
+
+    const country_name_regex = /^[a-zA-Z]+$/;
+
+    function validateCountryName(e) {
+    
+        const country_name = $("#country_name");
+    
+        if (country_name_regex.test(country_name.val())) {
+            
+            country_name.removeClass('is-invalid');
+
+            country_name.addClass('is-valid');
+
+            $('#country_name_valid_feedback').text("Looks good!");
+
+            // $('#createCountryBtn').prop("disabled", false);           
+            
+            return true;
+        }
+        else if(country_name.val().length === 0) {
+
+            country_name.addClass('is-invalid');
+
+            country_name.removeClass('is-valid');
+
+            $('#country_name_invalid_feedback').text("Country Cannot Leave Empty");
+
+            $('#createCountryBtn').prop("disabled", true);
+
+            return false;
+        }
+        else {
+            
+            country_name.addClass('is-invalid');
+            
+            country_name.removeClass('is-valid');
+
+            $('#country_name_invalid_feedback').text("Please Enter Alphabets Only.");
+            
+            $('#createCountryBtn').prop("disabled", true);
+            
+            return false;
+        }
+    }
+
+    $("#country_status").change(validateCountryStatus);
+
+    function validateCountryStatus(params) {
+        
+        // console.log($('#country_status').val());
+
+        if ( $('#country_status').val() == "active" && $('#country_name').val().length != 0 ||
+             $('#country_status').val() == "inactive" && $('#country_name').val().length != 0
+            )  
+        {
+            $('#country_status').removeClass('is-invalid');
+
+            $('#country_status').addClass('is-valid');
+
+            $('#country_status_valid_feedback').text("Looks good!");
+
+            $('#createCountryBtn').prop("disabled", false);
+
+            return true;
+        }
+        else if($('#country_status').val() == "none") {
+
+            $('#country_status').addClass('is-invalid');
+
+            $('#country_status').removeClass('is-valid');
+
+            $('#country_status_invalid_feedback').text("Please Select Country Status");
+
+            $('#createCountryBtn').prop("disabled", true);
+
+            return false;
+        }
+
+    }
+
+    $("#add_country_form").submit(function (e){
+        e.preventDefault();
+
+        var form = $('#add_country_form');
+
+        $.ajax({
+            url: $(form).attr('action'),
+            method: $(form).attr('method'),
+            data: form.serialize(),
+            processData: false,
+            dataType: 'json',
+            beforeSend: function ()
+            {
+                
+            },
+            success: function (data){
+                console.log(data);
+
+                if (data.status === 200)
+                {
+                    Swal.fire({
+
+                        icon: 'success',
+
+                        title: 'Success',
+
+                        text: data.messages,
+
+                        type: "success",
+
+                        didOpen: function () {
+                            Swal.showLoading()
+                            // AJAX request simulated with setTimeout
+                            setTimeout(function () {
+                              Swal.close()
+                            }, 2000)
+                        }
+
+                    })
+                        .then(function()
+                        {
+                            $("#add_country_form")[0].reset();
+                            location.reload();
+                            
+                        });
+
+                }
+                else if(data.status === 500)
+                {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Warning',
+                        text: JSON.stringify(data.messages),
+                    })
+                }
+            },
+        })
+    });
+    
+
+});

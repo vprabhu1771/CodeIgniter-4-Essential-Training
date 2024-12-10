@@ -1,0 +1,53 @@
+<?php
+
+namespace App\Controllers;
+
+use CodeIgniter\Controller;
+
+use App\Models\CountryModel;
+
+use CodeIgniter\API\ResponseTrait;
+
+class Country extends Controller
+{
+
+    use ResponseTrait;
+
+    public function __construct()
+    {
+        require_once APPPATH . 'ThirdParty/ssp.php';
+
+        $this->db = db_connect();
+    }
+
+    
+
+    public function delete()
+    {
+        $id = $this->request->getRawInput("country_id");
+
+        $model = new CountryModel();
+
+            if (!empty($id)) {
+
+                $model->delete($id);
+
+                $response = [
+                    'status' => 200,
+                    "error" => false,
+                    'messages' => 'Country deleted successfully',
+                    'data' => []
+                ];
+
+            } else {
+
+                $response = [
+                    'status' => 500,
+                    "error" => true,
+                    'messages' => 'Country Not found',
+                    'data' => []
+                ];
+            }
+        return $this->respondCreated($response);
+    }
+}

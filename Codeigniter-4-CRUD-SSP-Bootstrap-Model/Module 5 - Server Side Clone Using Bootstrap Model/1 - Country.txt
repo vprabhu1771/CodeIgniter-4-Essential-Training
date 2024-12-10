@@ -1,0 +1,49 @@
+<?php
+
+namespace App\Controllers;
+
+use CodeIgniter\Controller;
+
+use App\Models\CountryModel;
+
+use CodeIgniter\API\ResponseTrait;
+
+class Country extends Controller
+{
+
+    use ResponseTrait;
+
+    public function __construct()
+    {
+        require_once APPPATH . 'ThirdParty/ssp.php';
+
+        $this->db = db_connect();
+    }
+
+
+    public function clone()
+    {
+        $id = $this->request->getPost('country_id');
+
+        $model = new CountryModel();
+        
+        $data = $model->find($id);
+
+        $clone = [
+            "country_name" => strtoupper($this->request->getPost('country_name')),
+                
+            "country_status" => $this->request->getPost('country_status')
+        ];
+
+        $model->save($clone);
+
+        $response = [
+            'status' => 200,
+            "error" => false,
+            'messages' => 'Country Cloned successfully',
+            'data' => []
+        ];
+
+        return $this->respondCreated($response);
+    }
+}

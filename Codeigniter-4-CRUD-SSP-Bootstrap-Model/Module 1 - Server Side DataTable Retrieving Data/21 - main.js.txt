@@ -1,0 +1,43 @@
+$(document).ready(function(){
+
+    // Controller
+    var controller = "Country";
+
+    // Load Data Table
+    
+    if ($("#country_data_table").length > 0) 
+    {
+        
+        $("#country_data_table").DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: controller,
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: "copy",
+                    exportOptions: {
+                        columns: []
+                    }
+                },
+                {
+                    extend: "excel",
+                    title: "client_side_data"
+                },
+                {
+                    extend: "csv",
+                    title: "client_side_table_data"
+                },
+                {
+                    extend: "pdf",
+                    exportOptions: {
+                        columns: ":visible"
+                    }
+                },
+                'print'
+            ]
+        });
+
+    }
+
+});

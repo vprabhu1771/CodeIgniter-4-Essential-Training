@@ -1,0 +1,69 @@
+<div class="modal clone_country_model" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Clone New Country</h5>
+
+            </div>
+            <div class="modal-body">
+                <form action="<?= base_url("country/clone") ?>" method="post" id="clone_country_form">
+
+                    <input type="hidden" class="country_id" name="country_id">
+
+                    <div class="form-group">
+
+                        <label class="form-label">Country Name</label>
+
+                        <input type="text" class="form-control country_name" name="country_name" id="country_name" placeholder="eg: India">
+                        
+                        <div class="valid-feedback" id="country_name_valid_feedback">
+                            
+                        </div>
+                        
+                        <div class="invalid-feedback" id="country_name_invalid_feedback">
+                            
+                        </div>
+
+                    </div>
+                    
+                    <br>
+                    
+                    <div class="form-group">
+
+                        <label class="form-label">Country Status</label>
+
+                        <select class="form-select country_status" name="country_status" id="country_status">
+                            
+                            <option value="none" selected>Open this select menu</option>
+                            
+                            <option value="active">Active</option>
+                            
+                            <option value="inactive">Inactive</option>                
+
+                        </select>
+                        
+                        <div class="valid-feedback" id="country_status_valid_feedback">
+                            Looks good!
+                        </div>
+                        
+                        <div class="invalid-feedback" id="country_status_invalid_feedback">
+                            Please Enter Alphabets Only.
+                        </div>
+
+                    </div>
+
+                    <br>
+
+                    <div class="form-group">
+
+                        <button type="submit" class="btn btn-block btn-success" id="editCountryBtn">clone</button>
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+

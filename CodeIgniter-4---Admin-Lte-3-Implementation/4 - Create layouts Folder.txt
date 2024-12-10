@@ -1,0 +1,3 @@
+under app\views
+
+Folder Name : layouts

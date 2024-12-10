@@ -1,0 +1,4 @@
+open App/Config/Routes
+
+$routes->resource('city');
+$routes->resource('user');

@@ -1,0 +1,7 @@
+open app/Config/Routes.php
+
+// Get ALL Result 
+$routes->get('/', 'Home::index');
+
+// Get Single Result
+$routes->get('show/(:num)', 'Home::show/$1');
