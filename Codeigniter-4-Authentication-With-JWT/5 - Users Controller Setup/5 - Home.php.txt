@@ -1,0 +1,80 @@
+<?php
+
+namespace App\Controllers;
+
+require_once APPPATH . 'ThirdParty/Firebase/' . 'jwt/src/BeforeValidException.php';
+require_once APPPATH . 'ThirdParty/Firebase/' . 'jwt/src/ExpiredException.php';
+require_once APPPATH . 'ThirdParty/Firebase/' . 'jwt/src/SignatureInvalidException.php';
+require_once APPPATH . 'ThirdParty/Firebase/' . 'jwt/src/JWT.php';
+require_once APPPATH . 'ThirdParty/Firebase/' . 'jwt/src/Key.php';
+
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
+
+use App\Controllers\UsersController;
+
+use CodeIgniter\RESTful\ResourceController;
+
+// Header
+header("Access-Control-Allow-Origin: * ");
+header("Content-Type: application/json; charset=UTF-8 ");
+header("Access-Control-Allow-Methods: POST");
+header("Access-Control-Max-Age: 3600");
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+
+class Home extends ResourceController
+{
+
+    public function __construct()
+    {
+        $this->protect = new UsersController();
+    }
+
+    public function index()
+    {
+        // Generate Token
+        // $secret_key = $this->protect->privateKey();
+        $secret_key = $this->protect->publicKey();
+
+        $token = null;
+
+        $authHeader = $this->request->getServer('HTTP_AUTHORIZATION');
+
+        // dd($authHeader);
+
+        $arr = explode(" ", $authHeader);
+
+        $token = $arr[1];
+        // $token = $authHeader;
+
+        // If Token Exists
+        if ($token) 
+        {
+            try {
+                
+                $decoded = JWT::decode($token, new Key($secret_key, 'RS256') );
+
+                // Generate Decoded info
+                if ($decoded) 
+                {
+                    $output = [
+                        'message' => 'Access Granted'
+                    ];
+
+                    return $this->respond($output, 200);
+                }
+
+            } catch (\Exception $e) 
+            {
+                $output = [
+                    'message' => 'Access Denied',
+                    'error'   => $e->getMessage()
+                ];
+
+                return $this->respond($output, 401);
+            }
+        }
+
+        return view('welcome_message');
+    }
+}

@@ -1,0 +1,20 @@
+Open PostMan
+
+Open New Tab
+
+POST http://localhost:8080/UsersController/create 
+
+Body
+
+x-www-form-urlencoded
+
+Key		Value
+
+first_name	prabhu
+
+last_name	v
+
+email		prabhutest@gmail.com
+
+password	12345
+
